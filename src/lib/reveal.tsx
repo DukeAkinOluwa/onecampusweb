@@ -1,57 +1,72 @@
+
 "use client";
 
-import "../app/globals.css"
-import { useEffect, useRef, type ElementType, type ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ElementType, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-/**
- * Scroll-reveal wrapper. Content is rendered server-side (visible to crawlers
- * and no-JS users via the <noscript> override in __root) and revealed once
- * when ~15% of it enters the viewport. Honors prefers-reduced-motion via CSS.
- */
+interface RevealProps {
+  children: ReactNode;
+  as?: ElementType;
+  className?: string;
+  delay?: number;
+  style?: CSSProperties;
+  [key: string]: unknown;
+}
+
 export function Reveal({
   children,
   as: Tag = "div",
   className,
   delay = 0,
+  style,
   ...rest
-}: {
-  children: ReactNode;
-  as?: ElementType;
-  className?: string;
-  delay?: number;
-  [key: string]: unknown;
-}) {
+}: RevealProps) {
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (typeof IntersectionObserver === "undefined") {
-      el.classList.add("revealed");
+    const element = ref.current;
+
+    if (!element) return;
+
+    if (
+      typeof IntersectionObserver === "undefined" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      element.classList.add("revealed");
       return;
     }
+
+    element.classList.add("reveal-ready");
+
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("revealed");
-            observer.unobserve(entry.target);
-          }
-        }
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add("revealed");
+          observer.unobserve(entry.target);
+        });
       },
-      { threshold: 0.15 },
+      {
+        threshold: 0,
+        rootMargin: "0px 0px 80px 0px",
+      },
     );
-    observer.observe(el);
+
+    observer.observe(element);
+
     return () => observer.disconnect();
   }, []);
 
   return (
     <Tag
+      {...rest}
       ref={ref}
       className={cn("reveal", className)}
-      style={{ "--reveal-delay": `${delay}ms` } as React.CSSProperties}
-      {...rest}
+      style={{
+        ...style,
+        "--reveal-delay": `${delay}ms`,
+      } as CSSProperties}
     >
       {children}
     </Tag>

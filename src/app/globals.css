@@ -435,20 +435,25 @@
     opacity: 0.6;
   }
 
-  /* Reveal on Scroll */
+  /* Content remains visible until the observer initializes */
   .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition:
-      opacity 400ms var(--ease-enter),
-      transform 400ms var(--ease-enter);
-    transition-delay: var(--reveal-delay, 0ms);
-    will-change: opacity, transform;
+    opacity: 1;
+    transform: none;
   }
 
+  /* Hide only after JavaScript has initialized the observer */
+  .reveal.reveal-ready:not(.revealed) {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  /* Reveal animation */
   .reveal.revealed {
     opacity: 1;
     transform: translateY(0);
+    transition:
+      opacity 700ms ease var(--reveal-delay, 0ms),
+      transform 700ms ease var(--reveal-delay, 0ms);
   }
 
   /* Floating Hero Cards */
@@ -764,11 +769,14 @@
     scroll-behavior: auto;
   }
 
-  .reveal {
+  .reveal,
+  .reveal.reveal-ready:not(.revealed),
+  .reveal.revealed {
     opacity: 1;
     transform: none;
     transition: none;
   }
+
 
   .float-soft,
   .float-soft-delayed {
