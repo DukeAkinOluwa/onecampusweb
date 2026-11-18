@@ -11,7 +11,7 @@ import { CONTACT_EMAIL, leadershipProfiles } from "@/content/site";
 const PAGE_TITLE = "Leadership — OneCampus by Edvantae";
 
 const PAGE_DESCRIPTION =
-  "Meet Akinduko AkinOluwa, Managing Director, and Owolabi Titilayo, Chief Marketing Officer of Edvantae Digital Hub Limited, the team behind OneCampus.";
+  "Meet the leadership of Edvantae Digital Hub Limited, the team behind OneCampus.";
 
 export const metadata: Metadata = {
   title: PAGE_TITLE,

@@ -1,3 +1,5 @@
+
+import type { ImageProps } from "next/image";
 import { Linkedin } from "@/components/site/linkedin-icon";
 
 /**
@@ -5,7 +7,7 @@ import { Linkedin } from "@/components/site/linkedin-icon";
  * biography and social slots appear once approved content is available.
  */
 export interface ProfileData {
-  photo?: string;
+  photo?: ImageProps["src"];
   photoAlt?: string;
   fullName?: string;
   jobTitle?: string;
@@ -16,12 +18,19 @@ export interface ProfileData {
 }
 
 export function ProfileCard({ profile }: { profile: ProfileData }) {
+  const photoSrc =
+    typeof profile.photo === "string"
+      ? profile.photo
+      : profile.photo && "default" in profile.photo
+        ? profile.photo.default.src
+        : profile.photo?.src;
+
   return (
     <article className="card-base card-accent flex flex-col">
       <div className="aspect-[3/4] overflow-hidden rounded-xl bg-secondary">
-        {profile.photo ? (
+        {photoSrc ? (
           <img
-            src={profile.photo}
+            src={photoSrc}
             alt={profile.photoAlt ?? profile.fullName ?? ""}
             loading="lazy"
             width={1024}
@@ -30,28 +39,41 @@ export function ProfileCard({ profile }: { profile: ProfileData }) {
           />
         ) : null}
       </div>
+
       <h3 className="title-card mt-5">{profile.fullName}</h3>
+
       {profile.jobTitle && (
-        <p className="mt-1 text-sm font-semibold text-primary">{profile.jobTitle}</p>
+        <p className="mt-1 text-sm font-semibold text-primary">
+          {profile.jobTitle}
+        </p>
       )}
+
       {profile.biography && (
-        <p className="mt-3 text-sm leading-relaxed text-foreground">{profile.biography}</p>
+        <p className="mt-3 text-sm leading-relaxed text-foreground">
+          {profile.biography}
+        </p>
       )}
+
       {profile.experience && (
         <p className="mt-2 text-sm leading-relaxed text-foreground">
           <span className="font-semibold text-heading">Experience: </span>
           {profile.experience}
         </p>
       )}
+
       {profile.responsibilities && (
         <p className="mt-2 text-sm leading-relaxed text-foreground">
-          <span className="font-semibold text-heading">Responsibilities: </span>
+          <span className="font-semibold text-heading">
+            Responsibilities:{" "}
+          </span>
           {profile.responsibilities}
         </p>
       )}
+
       {profile.profileUrl && (
         <a
           href={profile.profileUrl}
+          target="_blank"
           rel="noopener noreferrer"
           aria-label={`LinkedIn profile of ${profile.fullName ?? "team member"}`}
           className="mt-4 inline-flex size-9 items-center justify-center rounded-lg border border-border-interactive bg-card text-primary transition-colors duration-150 hover:bg-secondary"
