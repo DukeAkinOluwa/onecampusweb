@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const primaryNav = [
   { to: "/", label: "Home" },
@@ -95,8 +95,19 @@ export function SiteHeader() {
       )}
     >
       <div className="container-page flex h-[68px] items-center justify-between gap-4 lg:h-[76px]">
-        <Link href="/" aria-label="OneCampus home" className="rounded-md">
-          <Logo />
+        <Link
+          href="/"
+          aria-label="OneCampus home"
+          className="relative inline-flex h-10 w-40 shrink-0 items-center"
+        >
+          <Image
+            src="/images/onecampus-logo.jpg"
+            alt="OneCampus"
+            fill
+            priority
+            sizes="160px"
+            className="object-contain object-left"
+          />
         </Link>
 
         {/* Desktop navigation */}

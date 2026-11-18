@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { Logo } from "./logo";
+import Image from "next/image";
 import { AppStoreBadges } from "./store-badges";
 import { COMPANY_ADDRESS, CONTACT_EMAIL } from "@/content/site";
 
@@ -47,8 +47,18 @@ export function SiteFooter() {
       <div className="container-page py-12 lg:py-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
           <div className="max-w-xs">
-            <Link href="/" aria-label="OneCampus home" className="rounded-md">
-              <Logo />
+            <Link
+              href="/"
+              aria-label="OneCampus home"
+              className="relative inline-flex h-10 w-40 shrink-0 items-center"
+            >
+              <Image
+                src="/images/onecampus-logo.jpg"
+                alt="OneCampus"
+                fill
+                sizes="160px"
+                className="object-contain object-left"
+              />
             </Link>
 
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
