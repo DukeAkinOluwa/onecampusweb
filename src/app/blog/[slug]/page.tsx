@@ -8,6 +8,7 @@ import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
 import { Reveal } from "@/lib/reveal";
 import {
+  articles,
   formatDate,
   getArticle,
   relatedArticles,
@@ -19,15 +20,20 @@ type ArticlePageProps = {
   }>;
 };
 
-type ArticleMetadataProps = {
-  params: Promise<{
-    slug: string;
-  }>;
-};
+// Generate a static route for every article.
+export function generateStaticParams() {
+  return articles.map((article) => ({
+    slug: article.slug,
+  }));
+}
 
+// Only generate routes returned by generateStaticParams().
+export const dynamicParams = false;
+
+// Generate SEO metadata for each article.
 export async function generateMetadata({
   params,
-}: ArticleMetadataProps): Promise<Metadata> {
+}: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticle(slug);
 
