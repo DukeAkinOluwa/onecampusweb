@@ -4,7 +4,7 @@ import Image from "next/image";
 import { AppStoreBadges } from "./store-badges";
 import { COMPANY_ADDRESS, CONTACT_EMAIL } from "@/content/site";
 
-const CURRENT_YEAR = 2026;
+const CURRENT_YEAR = new Date().getFullYear();
 
 const columns = [
   {
