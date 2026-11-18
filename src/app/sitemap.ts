@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { articles } from "@/content/blog";
 
 // Sitemap URLs use the canonical public project domain, not a preview host.
-const BASE_URL = "https://campus-canvas-match.lovable.app";
+const BASE_URL = "https://onecampus.edvantae.com";
 
 const staticPaths = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" },
