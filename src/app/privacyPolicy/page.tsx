@@ -1,3 +1,5 @@
+import { SiteFooter } from "@/components/site/footer";
+import { SiteHeader } from "@/components/site/header";
 import type { Metadata } from "next";
 
 const PAGE_TITLE = "Privacy Policy — OneCampus by Edvantae";
@@ -1362,135 +1364,139 @@ const privacyPolicySections: PolicySection[] = [
 
 export default function PrivacyPolicyPage() {
   return (
-    <main id="main-content">
-      <div className="container-page section-pad-tight">
-        <article className="mx-auto max-w-4xl px-4 py-12 font-sans leading-relaxed text-gray-800">
-          <header className="mb-10 border-b border-gray-200 pb-6">
-            <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-gray-900">
-              {privacyPolicyMeta.company}
-            </h1>
-            <h2 className="mb-4 text-xl font-semibold text-edvantae-blue">
-              {privacyPolicyMeta.title}
-            </h2>
-            <div className="space-y-1 text-sm text-gray-500">
-              <p>
-                <strong>Effective Date:</strong>{" "}
-                {privacyPolicyMeta.effectiveDate}
-              </p>
-              <p>
-                <strong>Last Updated:</strong>{" "}
-                {privacyPolicyMeta.lastUpdated}
-              </p>
-              <p>
-                <strong>Version:</strong> {privacyPolicyMeta.version}
-              </p>
-            </div>
-          </header>
+    <>
+      <SiteHeader />
+      <main id="main-content">
+        <div className="container-page section-pad-tight">
+          <article className="mx-auto max-w-4xl px-4 py-12 font-sans leading-relaxed text-gray-800">
+            <header className="mb-10 border-b border-gray-200 pb-6">
+              <h1 className="mb-2 text-3xl font-extrabold tracking-tight text-gray-900">
+                {privacyPolicyMeta.company}
+              </h1>
+              <h2 className="mb-4 text-xl font-semibold text-edvantae-blue">
+                {privacyPolicyMeta.title}
+              </h2>
+              <div className="space-y-1 text-sm text-gray-500">
+                <p>
+                  <strong>Effective Date:</strong>{" "}
+                  {privacyPolicyMeta.effectiveDate}
+                </p>
+                <p>
+                  <strong>Last Updated:</strong>{" "}
+                  {privacyPolicyMeta.lastUpdated}
+                </p>
+                <p>
+                  <strong>Version:</strong> {privacyPolicyMeta.version}
+                </p>
+              </div>
+            </header>
 
-          <div className="space-y-10">
-            {privacyPolicySections.map((section) => (
-              <section key={section.id} id={`section-${section.id}`} className="space-y-4">
-                <h2 className="border-b border-gray-100 pb-2 text-xl font-bold text-gray-900">
-                  {section.title}
-                </h2>
+            <div className="space-y-10">
+              {privacyPolicySections.map((section) => (
+                <section key={section.id} id={`section-${section.id}`} className="space-y-4">
+                  <h2 className="border-b border-gray-100 pb-2 text-xl font-bold text-gray-900">
+                    {section.title}
+                  </h2>
 
-                {section.content?.map((paragraph, index) => (
-                  <p key={`content-${index}`} className="leading-relaxed text-gray-700">
-                    {paragraph}
-                  </p>
-                ))}
-
-                {section.list && (
-                  <ul className="list-disc space-y-2 pl-6 text-gray-700">
-                    {section.list.map((item, index) => (
-                      <li key={`list-${index}`}>{item}</li>
-                    ))}
-                  </ul>
-                )}
-
-                {section.contentAfterList?.map((paragraph, index) => (
-                  <p key={`after-list-${index}`} className="leading-relaxed text-gray-700">
-                    {paragraph}
-                  </p>
-                ))}
-
-                {section.orderedList && (
-                  <ol className="list-decimal space-y-2 pl-6 text-gray-700">
-                    {section.orderedList.map((item, index) => (
-                      <li key={`ordered-${index}`}>{item}</li>
-                    ))}
-                  </ol>
-                )}
-
-                {section.subsections && (
-                  <div className="mt-4 space-y-6 border-l-2 border-edvantae-blue/20 pl-2 md:pl-4">
-                    {section.subsections.map((subsection, subsectionIndex) => (
-                      <div key={`subsection-${subsectionIndex}`} className="space-y-3">
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          {subsection.title}
-                        </h3>
-
-                        {subsection.content?.map((paragraph, paragraphIndex) => (
-                          <p key={`sub-content-${paragraphIndex}`} className="text-gray-700">
-                            {paragraph}
-                          </p>
-                        ))}
-
-                        {subsection.list && (
-                          <ul className="list-disc space-y-1 pl-6 text-gray-700">
-                            {subsection.list.map((item, itemIndex) => (
-                              <li key={`sub-list-${itemIndex}`}>{item}</li>
-                            ))}
-                          </ul>
-                        )}
-
-                        {subsection.contentAfterList?.map((paragraph, paragraphIndex) => (
-                          <p key={`sub-after-list-${paragraphIndex}`} className="text-gray-700">
-                            {paragraph}
-                          </p>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {section.callout && (
-                  <aside className="my-4 space-y-1 rounded-xl border border-gray-200 bg-gray-50 p-4">
-                    <p className="font-semibold text-gray-900">
-                      {section.callout.title}
+                  {section.content?.map((paragraph, index) => (
+                    <p key={`content-${index}`} className="leading-relaxed text-gray-700">
+                      {paragraph}
                     </p>
-                    {section.callout.details.map((detail, index) => (
-                      <p key={`callout-${index}`} className="text-sm text-gray-700">
-                        {detail}
+                  ))}
+
+                  {section.list && (
+                    <ul className="list-disc space-y-2 pl-6 text-gray-700">
+                      {section.list.map((item, index) => (
+                        <li key={`list-${index}`}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {section.contentAfterList?.map((paragraph, index) => (
+                    <p key={`after-list-${index}`} className="leading-relaxed text-gray-700">
+                      {paragraph}
+                    </p>
+                  ))}
+
+                  {section.orderedList && (
+                    <ol className="list-decimal space-y-2 pl-6 text-gray-700">
+                      {section.orderedList.map((item, index) => (
+                        <li key={`ordered-${index}`}>{item}</li>
+                      ))}
+                    </ol>
+                  )}
+
+                  {section.subsections && (
+                    <div className="mt-4 space-y-6 border-l-2 border-edvantae-blue/20 pl-2 md:pl-4">
+                      {section.subsections.map((subsection, subsectionIndex) => (
+                        <div key={`subsection-${subsectionIndex}`} className="space-y-3">
+                          <h3 className="text-lg font-semibold text-gray-900">
+                            {subsection.title}
+                          </h3>
+
+                          {subsection.content?.map((paragraph, paragraphIndex) => (
+                            <p key={`sub-content-${paragraphIndex}`} className="text-gray-700">
+                              {paragraph}
+                            </p>
+                          ))}
+
+                          {subsection.list && (
+                            <ul className="list-disc space-y-1 pl-6 text-gray-700">
+                              {subsection.list.map((item, itemIndex) => (
+                                <li key={`sub-list-${itemIndex}`}>{item}</li>
+                              ))}
+                            </ul>
+                          )}
+
+                          {subsection.contentAfterList?.map((paragraph, paragraphIndex) => (
+                            <p key={`sub-after-list-${paragraphIndex}`} className="text-gray-700">
+                              {paragraph}
+                            </p>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {section.callout && (
+                    <aside className="my-4 space-y-1 rounded-xl border border-gray-200 bg-gray-50 p-4">
+                      <p className="font-semibold text-gray-900">
+                        {section.callout.title}
                       </p>
-                    ))}
-                  </aside>
-                )}
+                      {section.callout.details.map((detail, index) => (
+                        <p key={`callout-${index}`} className="text-sm text-gray-700">
+                          {detail}
+                        </p>
+                      ))}
+                    </aside>
+                  )}
 
-                {section.contentAfterCallout?.map((paragraph, index) => (
-                  <p key={`after-callout-${index}`} className="leading-relaxed text-gray-700">
-                    {paragraph}
-                  </p>
-                ))}
+                  {section.contentAfterCallout?.map((paragraph, index) => (
+                    <p key={`after-callout-${index}`} className="leading-relaxed text-gray-700">
+                      {paragraph}
+                    </p>
+                  ))}
 
-                {section.listSecondary && (
-                  <ul className="list-disc space-y-2 pl-6 text-gray-700">
-                    {section.listSecondary.map((item, index) => (
-                      <li key={`secondary-list-${index}`}>{item}</li>
-                    ))}
-                  </ul>
-                )}
+                  {section.listSecondary && (
+                    <ul className="list-disc space-y-2 pl-6 text-gray-700">
+                      {section.listSecondary.map((item, index) => (
+                        <li key={`secondary-list-${index}`}>{item}</li>
+                      ))}
+                    </ul>
+                  )}
 
-                {section.contentAfterSecondaryList?.map((paragraph, index) => (
-                  <p key={`after-secondary-list-${index}`} className="leading-relaxed text-gray-700">
-                    {paragraph}
-                  </p>
-                ))}
-              </section>
-            ))}
-          </div>
-        </article>
-      </div>
-    </main>
+                  {section.contentAfterSecondaryList?.map((paragraph, index) => (
+                    <p key={`after-secondary-list-${index}`} className="leading-relaxed text-gray-700">
+                      {paragraph}
+                    </p>
+                  ))}
+                </section>
+              ))}
+            </div>
+          </article>
+        </div>
+      </main>
+      <SiteFooter />
+    </>
   );
 }
