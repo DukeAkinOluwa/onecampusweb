@@ -1,11 +1,12 @@
+
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 const primaryNav = [
   { to: "/", label: "Home" },
@@ -35,8 +36,10 @@ export function SiteHeader() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
+
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -49,16 +52,23 @@ export function SiteHeader() {
   // Outside click + Escape for the resources dropdown.
   useEffect(() => {
     if (!resourcesOpen) return;
+
     const onPointerDown = (e: PointerEvent) => {
-      if (resourcesRef.current && !resourcesRef.current.contains(e.target as Node)) {
+      if (
+        resourcesRef.current &&
+        !resourcesRef.current.contains(e.target as Node)
+      ) {
         setResourcesOpen(false);
       }
     };
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setResourcesOpen(false);
     };
+
     document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
+
     return () => {
       document.removeEventListener("pointerdown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
@@ -68,11 +78,14 @@ export function SiteHeader() {
   // Escape closes the mobile menu; lock background scroll while open.
   useEffect(() => {
     if (!mobileOpen) return;
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setMobileOpen(false);
     };
+
     document.addEventListener("keydown", onKeyDown);
     document.body.style.overflow = "hidden";
+
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
@@ -120,6 +133,7 @@ export function SiteHeader() {
               aria-current={isActive(pathname, item.to) ? "page" : undefined}
             >
               {item.label}
+
               {isActive(pathname, item.to) && (
                 <span
                   aria-hidden="true"
@@ -138,6 +152,7 @@ export function SiteHeader() {
               className={cn(linkClass(false), "flex items-center gap-1 py-2")}
             >
               Resources
+
               <ChevronDown
                 className={cn(
                   "size-3.5 transition-transform duration-200",
@@ -146,6 +161,7 @@ export function SiteHeader() {
                 aria-hidden="true"
               />
             </button>
+
             {resourcesOpen && (
               <div
                 role="menu"
@@ -174,6 +190,7 @@ export function SiteHeader() {
           >
             Log in
           </Link>
+
           <Link href="/signup">
             <span className="inline-flex h-[42px] items-center justify-center rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-hover">
               Get Started
@@ -189,6 +206,7 @@ export function SiteHeader() {
           >
             Get Started
           </Link>
+
           <button
             type="button"
             className="inline-flex size-11 items-center justify-center rounded-lg text-heading transition-colors hover:bg-secondary"
@@ -197,7 +215,11 @@ export function SiteHeader() {
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             onClick={() => setMobileOpen((v) => !v)}
           >
-            {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+            {mobileOpen ? (
+              <X className="size-5" />
+            ) : (
+              <Menu className="size-5" />
+            )}
           </button>
         </div>
       </div>
@@ -225,19 +247,21 @@ export function SiteHeader() {
                 {item.label}
               </Link>
             ))}
+
             <p className="mt-3 px-2 text-xs font-semibold uppercase tracking-[0.04em] text-muted-foreground">
               Resources
             </p>
+
             {resourcesNav.map((item) => (
               <Link
                 key={item.label}
-                href={item.to}
-                {...("hash" in item ? { href: `${item.to}#${item.hash}` } : {})}
+                href={"hash" in item ? `${item.to}#${item.hash}` : item.to}
                 className="rounded-lg px-2 py-3.5 text-[15px] font-medium text-foreground hover:text-primary"
               >
                 {item.label}
               </Link>
             ))}
+
             <div className="mt-4 grid gap-2.5 border-t border-border-subtle pt-4">
               <Link
                 href="/login"
@@ -245,6 +269,7 @@ export function SiteHeader() {
               >
                 Log in
               </Link>
+
               <Link
                 href="/signup"
                 className="inline-flex h-[46px] items-center justify-center rounded-lg bg-primary text-sm font-semibold text-primary-foreground hover:bg-primary-hover"

@@ -1,5 +1,6 @@
 
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -98,11 +99,13 @@ export default async function ArticlePage({
           {/* Cover */}
           <div className="container-page max-w-4xl">
             <Reveal>
-              <img
+              <Image
                 src={article.cover}
                 alt={article.coverAlt}
                 width={1024}
                 height={640}
+                priority
+                sizes="(max-width: 896px) 100vw, 896px"
                 className="aspect-[16/10] w-full rounded-[18px] object-cover shadow-[0_8px_30px_rgba(16,35,79,0.10)]"
               />
             </Reveal>
@@ -151,10 +154,12 @@ export default async function ArticlePage({
                     href={`/blog/${encodeURIComponent(rel.slug)}`}
                     className="card-base card-interactive flex gap-4 overflow-hidden !p-4"
                   >
-                    <img
+                    <Image
                       src={rel.cover}
                       alt={rel.coverAlt}
-                      loading="lazy"
+                      width={96}
+                      height={96}
+                      sizes="96px"
                       className="hidden size-24 shrink-0 rounded-xl object-cover sm:block"
                     />
 

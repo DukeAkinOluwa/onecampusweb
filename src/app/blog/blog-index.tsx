@@ -1,6 +1,7 @@
 
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site/header";
@@ -68,12 +69,13 @@ export default function BlogIndex() {
                     href={`/blog/${encodeURIComponent(article.slug)}`}
                     className="card-base card-interactive flex h-full flex-col overflow-hidden !p-0"
                   >
-                    <div className="aspect-[16/10] overflow-hidden">
-                      <img
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      <Image
                         src={article.cover}
                         alt={article.coverAlt}
-                        loading="lazy"
-                        className="size-full object-cover"
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover"
                       />
                     </div>
 
