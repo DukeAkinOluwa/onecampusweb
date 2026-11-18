@@ -27,9 +27,6 @@ export function generateStaticParams() {
   }));
 }
 
-// Only generate routes returned by generateStaticParams().
-export const dynamicParams = false;
-
 // Generate SEO metadata for each article.
 export async function generateMetadata({
   params,
